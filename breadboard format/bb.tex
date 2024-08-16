@@ -8,7 +8,8 @@
   text/.style = {white, font=\sffamily, anchor = right},
 }
 \begin{document}
-\begin{tikzpicture}[x=5mm,y=5mm]
+\begin{tikzpicture}[x= 5mm,y=5mm]
+% breadboard
   \draw[fill=black!05!white] (-4,-1) rectangle (16,32);
   \draw[wire=red]  (-3,1) -- (-3,30);
   \draw[wire=blue] (-2,1) -- (-2,30);
@@ -42,24 +43,5 @@
     \node[blue] at (\xi,0) {\m};
     \node[blue] at (\xi,31) {\m};
   }
-  \draw[fill=blue] (-4,31.5) rectangle (16,33.5);
-  \draw[fill=blue] (3.5,31.5) rectangle (8.5,9);
-  \draw[fill=black] (4.5,9) rectangle (7.5,0.5);
-  \foreach \yi in {11,...,30}{
-    \node[hole=gray] at (4,\yi){};
-    \node[hole=gray] at (8,\yi){};
-  }
-  \foreach \m/\yi in {3V3/30,SDA/29,SDL/28,\#4/27,GND/26,\#17/25,\#27/24,\#22/23,3.3V/22,MOSI/21,MISO/20,SCLK/19,GND/18,EED/17,\#5/16,\#6/15,\#13/14,\#19/13,\#26/12,GND/11}{ 
-    \node[white, font=\sffamily, align=right] at (5,\yi) {\m};
-  }
-  \foreach \m/\yi in {5.0V/30,5.0V/29,GND/28,TXD/27,RXD/26,\#18/25,GND/24,\#23/23,\#24/22,GND/21,\#25/20,CE0/19,CE1/18,EEC/17,GND/16,\#12/15,GND/14,\#16/13,\#20/12,\#21/11}{ 
-    \node[white, font=\sffamily, align= left] at (7,\yi) {\m};
-  }
-  \node[white, font=\sffamily] at (6,33) {Adafruit T-Cobbler Plus};
-  \node[white, font=\sffamily] at (6,32) {For Raspberry Pi};
-  \foreach \x in {4.25,7.75}{
-    \node[fill = gray, circle, minimum width = 5mm, inner sep = 1mm] at (\x,9.75){};
-  }
-  
 \end{tikzpicture}
 \end{document}

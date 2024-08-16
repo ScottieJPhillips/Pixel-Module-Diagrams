@@ -70,7 +70,7 @@
     \node[label=above:Bread Board, bb] at (7,-7.5) (bb) {\\{Interlock Control}\\{}\\{TEC Control}\\{}\\{Vacuum Sensor}\\{}\\{HYT Sensor}\\{}\\{HYT Sensor}}
     edge[->, in = 0, out = 27] (meer)
     edge[->, in = 0, out = 47] (int);
-    \node[software] at (7,-11) (rpi) {RPI-06}
+    \node[software] at (7,-11) (rpi) {RPI-11}
     edge[-, blue, line width = 50] (bb);
     \node[hardware] at (2,-11) (dac) {Data\\Adapter\\Card}
     edge[<-, dashed, in = 270, out = 270] (daq);
@@ -106,7 +106,7 @@
     \node[label=above:Bread Board, bb] at (17,-7.5) (bb1) {\\{Interlock Control}\\{}\\{TEC Control}\\{}\\{Vacuum Sensor}\\{}\\{HYT Sensor}\\{}\\{HYT Sensor}}
     edge[->, in = 0, out = 27] (meer1)
     edge[->, in = 0, out = 47] (int1); 
-    \node[software] at (17,-11) (rpi1) {RPI-06}
+    \node[software] at (17,-11) (rpi1) {RPI-12}
     edge[-, blue, line width = 50] (bb1);
     \node[hardware] at (12,-11) (dac1) {Data\\Adapter\\Card}
     edge[<-, dashed, in = 270, out = 270] (daq);
@@ -119,7 +119,7 @@
     edge[<-, dashed, in = 215, out = 0] (bb1);
     \node[hardware, below of = pelt1] (cp1) {Cold\\Plate}
     edge[<-, dashed, in = 235, out = 0] (bb1);
-    \node[module, above of = chuck1] (mod1) {$\delta$\\Module}
+    \node[module, above of = chuck1, text size=10] (mod1) {$\epsilon$\\Module}
     edge[-, orange, line width = 5, in = 295, out = 65] (pac1)
     edge[-, orange, line width = 5, in = 65, out = 295] (dac1);
 \end{scope}
@@ -151,7 +151,6 @@
     \node[right of = monlegend]{};
     \node[left of = dac]{};
 \end{scope}
-
 \end{tikzpicture}
 
 \end{document}
