@@ -44,41 +44,107 @@
   	]
     % gamma
     \begin{scope}[every node/.append style={scale=6}, node distance=2.5cm]
-        \node at (20,10) {Gamma Testing Setup Diagram};
+        \node at (12,12) {Gamma Testing Setup Diagram};
     \end{scope}
     % power supplies
-    \node[hardware] at (5,5) (psc) {Power\\\texttt Supply C\\\texttt {}\\\texttt {}Ch1 { { }}Ch2\\\texttt{}$\gamma$ 1 { }$\gamma$ 2};
-    \node[hardware, right of = psc] (pse) {Power\\\texttt {}Supply E\\\texttt{}\\\texttt {}Ch1 { { }}Ch2\\\texttt{}Vac{ { { }}}Int};
-    \node[hardware] at (12,5) (hvps) {CAEN\\\texttt {}HVPS\\\texttt {}\\\texttt {}Ch4{ { }}Ch5 { { }}Ch6 { { }}Ch7\\\texttt{}$\gamma$ 1 { { }} $\gamma$ 2 { { }} $\gamma$ 3 { { }} $\gamma$ 4 };
-    \node[hardware] at (16,5) (psf) {Power\\\texttt {}Supply F\\\texttt {}\\\texttt {}Ch1 { { }}Ch2\\\texttt{}$\gamma$ 3 { } $\gamma$ 4};
-    \node[software] at (23,-3) (daq) {Daq-04}
-    edge[->, in = 45, out = 90] (psc)
-    edge[->, in = 45, out = 90] (pse)
-    edge[->, in = 45, out = 90] (hvps)
-    edge[->, in = 45, out = 90] (psf);
+    \node[hardware] at (0,7) (psc) {Power\\\texttt Supply C\\\texttt {}\\\texttt {}Ch1 { { }}Ch2\\\texttt{}$\gamma$ 1 { }$\gamma$ 2};
+    \node[hardware] at (2,4.5) (pse) {Power\\\texttt {}Supply E\\\texttt{}\\\texttt {}Ch1 { { }}Ch2\\\texttt{}Vac{ { { }}}Int};
+    \node[hardware] at (7,5) (hvps) {CAEN\\\texttt {}HVPS\\\texttt {}\\\texttt {}Ch4{ { }}Ch5{ { }}Ch6{ { }}Ch7\\\texttt{}$\gamma$ 1{ { }} $\gamma$ 2{ { }} $\gamma$ 3{ { }} $\gamma$ 4 };
+    \node[hardware] at (-2,3) (psf) {Power\\\texttt {}Supply F\\\texttt {}\\\texttt {}Ch1 { { }}Ch2\\\texttt{}$\gamma$ 3 { } $\gamma$ 4};
+    \node[software] at (18,6) (daq) {Daq-04}
+    edge[->, in = 45, out = 180] (psc)
+    edge[->, in = 45, out = 180] (pse)
+    edge[->, in = 45, out = 180] (hvps)
+    edge[->, in = 45, out = 180] (psf);
 
     % test stand
     % gamma1
-    \node[hardware] at (4,0) (int1) {Hardware\\Interlock}; 
-    \node[hardware, right of = int1] (pac1) {Power\\Adapter\\Card};
+    \node[hardware] at (4,0) (int1) {Hardware\\Interlock}
+    edge[<-,red,line width=1.5,out=180,in=250] (psc)
+    edge[<-,red,line width=1.5,out=130,in=300] (pse)
+    edge[->,out=80,in=210] (hvps);
+    \node[hardware, right of = int1] (pac1) {Power\\Adapter\\Card}
+    edge[<-,red,strike thru arrow, line width=0.75,out=110,in=220] (hvps)
+    edge[<-,red,strike thru arrow,line width=1.5] (int1);
     \node[module, right of = pac1] (gamma1) {$\gamma$ 1}
     edge[-,orange,line width=5,in=20,out=160] (pac1);
     \node[hardware,right of = gamma1] (dac1) {Data\\Adapter\\Card}
-    edge[-,orange,line width=5,in=20,out=160] (gamma1);
+    edge[-,orange,line width=5,in=20,out=160] (gamma1)
+    edge[<-,dashed,out=0,in=270] (daq);
+    
     % gamma2
-    \node[hardware] at (4,-3) (int2) {Hardware\\Interlock}; 
-    \node[hardware, right of = int2] (pac2) {Power\\Adapter\\Card};
+    \node[hardware] at (4,-3.5) (int2) {Hardware\\Interlock}
+    edge[<-,red,line width=1.5,out=180,in=290] (psc)
+    edge[<-,red,line width=1.5,out=130,in=293] (pse)
+    edge[->,out=80,in=210] (hvps); 
+    \node[hardware, right of = int2] (pac2) {Power\\Adapter\\Card}
+    edge[<-,red,strike thru arrow,line width=0.75,out=120,in=250] (hvps)
+    edge[<-,red,strike thru arrow,line width=1.5] (int2);
     \node[module, right of = pac2] (gamma2) {$\gamma$ 2}
     edge[-,orange,line width=5,in=20,out=160] (pac2);
     \node[hardware,right of = gamma2] (dac2) {Data\\Adapter\\Card}
-    edge[-,orange,line width=5,in=20,out=160] (gamma2);
+    edge[-,orange,line width=5,in=20,out=160] (gamma2)
+    edge[<-,dashed,out=0,in=270] (daq);
+    
+    % gamma3
+    \node[hardware] at (4,-7) (int3) {Hardware\\Interlock}
+    edge[<-,red,line width=1.5,out=180,in=250] (psf)
+    edge[<-,red,line width=1.5,out=130,in=287] (pse)
+    edge[->,out=80,in=210] (hvps); 
+    \node[hardware, right of = int3] (pac3) {Power\\Adapter\\Card}
+    edge[<-,red,strike thru arrow,line width=0.75,out=80,in=290] (hvps)
+    edge[<-,red,strike thru arrow,line width=1.5] (int3);
+    \node[module, right of = pac3] (gamma3) {$\gamma$ 3}
+    edge[-,orange,line width=5,in=20,out=160] (pac3);
+    \node[hardware,right of = gamma3] (dac3) {Data\\Adapter\\Card}
+    edge[-,orange,line width=5,in=20,out=160] (gamma3)
+    edge[<-,dashed,out=0,in=270] (daq);
+    
+    % gamma4
+    \node[hardware] at (4,-10.5) (int4) {Hardware\\Interlock}
+    edge[<-,red,line width=1.5,out=180,in=290] (psf)
+    edge[<-,red,line width=1.5,out=130,in=280] (pse)
+    edge[->,out=80,in=210] (hvps); 
+    \node[hardware, right of = int4] (pac4) {Power\\Adapter\\Card}
+    edge[<-,red,strike thru arrow,line width=0.75,out=80,in=315] (hvps)
+    edge[<-,red,strike thru arrow,line width=1.5] (int4);
+    \node[module, right of = pac4] (gamma4) {$\gamma$ 4}
+    edge[-,orange,line width=5,in=20,out=160] (pac4);
+    \node[hardware,right of = gamma4] (dac4) {Data\\Adapter\\Card}
+    edge[-,orange,line width=5,in=20,out=160] (gamma4)
+    edge[<-,dashed,out=0,in=270] (daq);
 
-    % coldplate
+    % coldplate and vac chucks
     \begin{scope}[on background layer]
-    \node[] at (3,1) (tl) {};
-    \node[] at (16,-5) (br) {};
+    \node[] at (2,2) (tl) {};
+    \node[] at (15,-13) (br) {};
+    \node[] at (8.75,1.25) (tlc) {};
+    \node[] at (11.25,-12.5) (brc) {};
     \node [label=below:Gamma, boxit, fit=(tl)(br)]{};
-    \node [label=below:Cold Plate, boxit, fit=(gamma1) (gamma2)] {};
+    \node [label=below:Cold Plate, boxit, fit=(tlc)(brc)] {};
+    \node [label=below:Vacuum\\Chuck,boxit,fit=(gamma1)] {};
+    \node [label=below:Vacuum\\Chuck,boxit,fit=(gamma2)] {};
+    \node [label=below:Vacuum\\Chuck,boxit,fit=(gamma3)] {};
+    \node [label=below:Vacuum\\Chuck,boxit,fit=(gamma4)] {};
+    \end{scope}
+    \begin{scope}[on background layer][every node/.append style={scale=1}, node distance=2cm]
+    \node[module] at (26,4) (modlegend) {Module};
+    \node[software, right of = modlegend] (softlegend) {Software\\(Control/\\Monitor)};
+    \node[hardware, right of = softlegend] (hardlegend){Hardware};
+    \node[bb, right of = hardlegend] (bblegend) {Bread\\Board};
+    \draw[-, red, line width=.75] (25,2) -- (27,2);
+    \draw[-, red, line width=1.5] (28,2) -- (30,2);
+    \draw[-] (31,2) -- (33,2);
+    \draw[-, dashed] (34,2) -- (36,2);
+    \draw[-,orange,line width=5] (25,0) -- (27,0);
+    \draw[-,red,strike thru arrow] (28,0) -- (30,0);
+    \node[below of  = modlegend] (hvlegend) {High Voltage\\{}\\{}};
+    \node[right of = hvlegend] (lvlegend) {Low Voltage\\{}\\{}};
+    \node[right of = lvlegend] (conlegend) {Controlling\\{}\\{}};
+    \node[right of = conlegend] (monlegend) {Monitoring\\{}\\{}};
+    \node[right of = monlegend]{};
+    \node[] at (26,-1) (piglegend) {Pigtails};
+    \node[right of = piglegend] (intlegend) {Connection can\\be cut by\\hardware interlock};
     \end{scope}
     
 \end{tikzpicture}

@@ -1,6 +1,12 @@
 \documentclass[tikz]{standalone}
 
 \usetikzlibrary{calc,positioning,shapes.geometric,backgrounds,fit,shadows.blur,arrows,arrows.meta,decorations.markings}
+\usepackage{fontawesome}
+\usepackage[colorlinks = true,
+linkcolor = black,
+urlcolor  = black,
+citecolor = black,
+anchorcolor = black]{hyperref}
 
 \newcommand*{\StrikeThruDistance}{0.15cm}%
 \newcommand*{\StrikeThru}{\StrikeThruDistance,\StrikeThruDistance}%
@@ -119,7 +125,7 @@
     edge[<-, dashed, in = 215, out = 0] (bb1);
     \node[hardware, below of = pelt1] (cp1) {Cold\\Plate}
     edge[<-, dashed, in = 235, out = 0] (bb1);
-    \node[module, above of = chuck1, text size=10] (mod1) {$\epsilon$\\Module}
+    \node[module, above of = chuck1] (mod1) {$\epsilon$\\Module}
     edge[-, orange, line width = 5, in = 295, out = 65] (pac1)
     edge[-, orange, line width = 5, in = 65, out = 295] (dac1);
 \end{scope}
@@ -136,21 +142,31 @@
 
     % legend
 \begin{scope}[on background layer][every node/.append style={scale=1}, node distance=2cm]
-    \node[module] at (4,-18) (modlegend) {Module};
+    \node[module] at (26,4) (modlegend) {Module};
     \node[software, right of = modlegend] (softlegend) {Software\\(Control/\\Monitor)};
     \node[hardware, right of = softlegend] (hardlegend){Hardware};
     \node[bb, right of = hardlegend] (bblegend) {Bread\\Board};
-    \draw[-, red, line width=.75] (3,-21.5) -- (5,-21.5);
-    \draw[-, red, line width=1.5] (6,-21.5) -- (8,-21.5);
-    \draw[-] (9,-21.5) -- (11,-21.5);
-    \draw[-, dashed] (12,-21.5) -- (14,-21.5);
+    \draw[-, red, line width=.75] (25,2) -- (27,2);
+    \draw[-, red, line width=1.5] (28,2) -- (30,2);
+    \draw[-] (31,2) -- (33,2);
+    \draw[-, dashed] (34,2) -- (36,2);
+    \draw[-,orange,line width=5] (25,0) -- (27,0);
+    \draw[-,red,strike thru arrow] (28,0) -- (30,0);
     \node[below of  = modlegend] (hvlegend) {High Voltage\\{}\\{}};
     \node[right of = hvlegend] (lvlegend) {Low Voltage\\{}\\{}};
     \node[right of = lvlegend] (conlegend) {Controlling\\{}\\{}};
     \node[right of = conlegend] (monlegend) {Monitoring\\{}\\{}};
     \node[right of = monlegend]{};
     \node[left of = dac]{};
+    \node[] at (26,-1) (piglegend) {Pigtails};
+    \node[right of = piglegend] (intlegend) {Connection can\\be cut by\\hardware interlock};
 \end{scope}
+\begin{scope}[every node/.append style={scale=2}, node distance=2.5cm]
+    % links
+    \node[] at (28,-9) (gitlink) {\hfill\href{https://github.com/ScottieJPhillips/Pixel-Module-Diagrams}{\faicon{github}~github repository}};
+    \node[] at (28.2,-10) (overleaflink) {\hfill\href{https://www.overleaf.com/read/bkwxczvgrprg#ddf6fd}{\faicon{link}~overleaf project}};
+\end{scope}
+
 \end{tikzpicture}
 
 \end{document}

@@ -1,7 +1,13 @@
 \documentclass[margin=2mm]{standalone}
 \usepackage{tikz}
+\usepackage[colorlinks = true,
+linkcolor = black,
+urlcolor  = black,
+citecolor = black,
+anchorcolor = black]{hyperref}
 \usepackage{circuitikz}
 \usepackage{siunitx} 
+\usepackage{fontawesome}
 \usepackage{pst-circ}
 \usetikzlibrary{calc,positioning,shapes.geometric,backgrounds,fit,shadows.blur,arrows,arrows.meta,decorations.markings}
 \tikzset{
@@ -117,5 +123,10 @@
   \foreach \m/\yi in {Ctrl/10,GND/9}{ \node[white,font=\sffamily,scale=0.7] at (25.5,\yi) {\m};
   }
   
+\begin{scope}[every node/.append style={scale=2}, node distance=2.5cm]
+  % links
+  \node[] at (25,2) (gitlink) {\href{https://github.com/ScottieJPhillips/Pixel-Module-Diagrams}{\faicon{github}~github repository}};
+  \node[] at (25,0) (overleaflink) {\href{https://www.overleaf.com/read/bkwxczvgrprg#ddf6fd}{\faicon{link}~overleaf project}};
+\end{scope}
 \end{tikzpicture}
 \end{document}
