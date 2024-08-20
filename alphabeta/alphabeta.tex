@@ -1,6 +1,12 @@
 \documentclass[tikz]{standalone}
 
 \usetikzlibrary{calc,positioning,shapes.geometric,backgrounds,fit,shadows.blur,arrows,arrows.meta,decorations.markings}
+\usepackage{fontawesome}
+\usepackage[colorlinks = true,
+linkcolor = black,
+urlcolor  = black,
+citecolor = black,
+anchorcolor = black]{hyperref}
 
 \newcommand*{\StrikeThruDistance}{0.15cm}%
 \newcommand*{\StrikeThru}{\StrikeThruDistance,\StrikeThruDistance}%
@@ -40,105 +46,127 @@
 		line width=0.5mm,
 		rounded corners
 	},
+        bb/.style={rectangle,colorit=white, minimum size=2cm},
 	boxit/.default=yellow
   	]
-    %alpha beta set up
-    \node[hardware] (psa) {Power\\\texttt Supply A\\\texttt {}\\\texttt {}Ch1 { { }}Ch2\\\texttt{}Alpha TEC};
-    \node[hardware, right of = psa] (psd) {Power\\\texttt {}Supply D\\\texttt{}\\\texttt {}Ch1 { { }}Ch2\\\texttt{}Int { { }}Vac};
-    \node[hardware, right of = psd] (hvps) {CAEN\\\texttt {}HVPS\\\texttt {}\\\texttt {}Ch1 { { }}Ch2\\\texttt{}Alpha{ } Beta};
-    \node[hardware] at (11,0) (psb) {Power\\\texttt {}Supply B\\\texttt {}\\\texttt {}Ch1 { { }}Ch2\\\texttt{}Beta TEC};
-    \node[hardware] at (-5,-8) (inta) {Hardware\\\texttt {}Interlock}
-    edge[<-, red, line width= 1.5, in = 240, out = 100] (psa)
-    edge[<-, red, line width= .75, in = 240, out = 75] (hvps)
-    edge[<-, red, line width = 1.5, in = 240, out = 85] (psd);
-    \node[hardware] at (-6,-3) (meera) {Meerstetter}
-    edge[<-, red, line width = 1.5, in = 300, out = 30] (psa)
-    edge[->, red, line width = 1.5, in = 120, out = 255] (inta);
-    \node[hardware, right of = inta] (paca) {Power\\\texttt{}Adapter\\\texttt{}Card};
-    \draw[->, red, line width=.75, strike thru arrow] (-4,-7.75) -- (-3,-7.75);
-    \draw[->, red, line width=1.5, strike thru arrow] (-4,-8.25) -- (-3,-8.25);
-    \node[module, right of = paca] (alpha) {$\alpha$};
-    \draw[->, red, line width=.75] (-1,-7.75) -- (0,-7.75);
-    \draw[->, red, line width=1.5] (-1,-8.25) -- (0,-8.25);
-    \node[hardware, below of = alpha] (pelta) {Peltier}
-    edge[<-, red, line width = 1.5, in = 300, out = 170, strike thru arrow] (inta)
-    edge[->, blue] (alpha);
-    \node[hardware, right of = alpha] (daca) {Data\\\texttt{}Adapter\\\texttt{}Card}
-    edge[->, red, line width = 1.5] (alpha);
-    \node[software] at (-6,-14) (rpi7) {rpi-07}
-    edge[->, in = 225, out = 90] (inta)
-    edge[->, in = 240, out = 135] (meera)
-    edge[->, dashed, in = 270, out = 45] (paca)
-    edge[<-, dashed] (pelta);
-    \node[hardware, above of = alpha] (vac) {Vacuum\\\texttt{}Sensor}
-    edge[<-, red, line width = 1.5, in = 285, out = 60] (psd)
-    edge[->, dashed] (alpha)
-    edge[<-, dashed, in = 17, out = 242] (rpi7);
-    \node[module] at (8,-12) (beta) {$\beta$};
-    \node[hardware, left of = beta] (dacb) {Data\\\texttt{}Adapter\\\texttt{}Card}
-    edge[->, red, line width = 1.5](beta);
-    \node[hardware, right of = beta] (pacb) {Power\\\texttt{}Adapter\\\texttt{}Card};
-    \draw[<-, red, line width=.75] (9,-11.75) -- (10,-11.75);
-    \draw[<-, red, line width=1.5] (9,-12.25) -- (10,-12.25);
-    \draw[<-, red, line width=.75, strike thru arrow] (12,-11.75) -- (13,-11.75);
-    \draw[<-, red, line width=1.5, strike thru arrow] (12,-12.25) -- (13,-12.25);
-    \node[hardware, right of = pacb] (intb) {Hardware\\\texttt{}Interlock}
-    edge[<-, red, line width = .75, in = 300, out = 90] (hvps)
-    edge[<-, red, line width = 1.5, in = 240, out = 75] (psb)
-    edge[<-, red, line width = 1.5, in = 245, out = 120] (psd);
-    \node[hardware, below of = beta] (peltb) {Peltier}
-    edge[->, blue](beta)
-    edge[<-, red, line width = 1.5, out = 10, in = 240, strike thru arrow] (intb);
-    \node[hardware, above of = beta] (vacb) {Vacuum\\\texttt{}Sensor}
-    edge[->, dashed] (beta)
-    edge[<-, red, line width = 1.5, in = 300, out = 135] (psd);
-    \node[hardware] at (18, -5) (meerb) {Meerstetter}
-    edge[<-, red, line width = 1.5, in = 300, out = 120] (psb)
-    edge[->, red, line width = 1.5, in = 0, out = 240] (intb);
-    \node[software] at (15,-16) (rpi4) {rpi-04}
-    edge[->, in = 270, out = 45] (meerb)
-    edge[->] (intb)
-    edge[->, dashed, in = 270, out = 135] (pacb)
-    edge[->, dashed, in = 295, out = 200] (vacb)
-    edge[<-, dashed] (peltb);
-    \node[software] at (10, 4) (daq5) {DAQ-05}
-    edge[->, dashed] (daca)
-    edge[->, dashed] (dacb)
-    edge[->, dashed, in = 90, out = 180] (psa)
-    edge[->, dashed, in = 90, out = 225] (hvps);
-    \node[hardware, below of = pelta] (colda) {Cold\\\texttt{}Plate}
-    edge[->, blue] (pelta)
-    edge[<-, dashed] (rpi7);
-    \node[hardware, below of = peltb] (coldb) {Cold\\\texttt{}Plate}
-    edge[->, blue] (peltb)
-    edge[<-, dashed] (rpi4);
-    \node[hardware] at (2.5,-18.5) (chill) {Ice King}
-    edge[->, blue] (colda)
-    edge[->, blue] (coldb);
-    \node at (0,-20.5) (blank) { };
-    \node at (22,0) (blank) { };
-    \node at (0,6) (blank) { };
-
-\begin{scope}[every node/.append style={scale=5}, node distance=2.5cm]
-    \node at (6,7) {Alpha and Beta Testing Setup Diagram};
+\begin{scope}[every node/.append style={scale=6}, node distance=2.5cm]
+    \node at (20,10) {Alpha and Beta Testing Setup Diagram};
 \end{scope}
-\begin{scope}[every node/.append style={scale=.75}, node distance=2.5cm]
-    \node[database] (legend db) at (15.05,-18) {Database};
-    \node[hardware, right of=legend db] (legend hw) {Hardware};
-    \node[software, right of=legend hw] (legend sw) {Software};
-    \node[module, right of=legend sw] (legend module) {module};
-\end{scope}
+    % power supplies
+    \node[hardware] at (5,5) (psa) {Power\\\texttt Supply A\\\texttt {}\\\texttt {}Ch1 { { }}Ch2\\\texttt{}Alpha TEC};
+    \node[hardware, right of = psa] (psd) {Power\\\texttt {}Supply D\\\texttt{}\\\texttt {}Ch1 { { }}Ch2\\\texttt{}Int $\alpha${ { }}Int $\beta$};
+    \node[hardware, right of = psd] (hvps) {CAEN\\\texttt {}HVPS\\\texttt {}\\\texttt {}Ch3 { { }}Ch4\\\texttt{}Alpha Beta};
+    \node[hardware, right of = hvps] (psb) {Power\\\texttt {}Supply B\\\texttt {}\\\texttt {}Ch1 { { }}Ch2\\\texttt{}Beta TEC};
+    \node[software] at (23,-3) (daq) {Daq-05}
+    edge[->, in = 45, out = 90] (psa)
+    edge[->, in = 45, out = 90] (psd)
+    edge[->, in = 45, out = 90] (hvps)
+    edge[->, in = 45, out = 90] (psb);
+    
+    % delta
+    \node[hardware] at (2,0) (pac) {Power\\Adapter\\Card}
+    edge[<-, red, line width = 0.75, strike thru arrow, in = 250, out = 95] (hvps);
+    \node[hardware] at (7,0) (meer) {Meerstetter}
+    edge[<-, red, line width = 1.5, in = 290, out = 90] (psa);
+    \node[hardware, below of = meer] (int) {Hardware\\Interlock}
+    edge[<-, red, line width = 1.5, in = 250, out = 135] (psa)
+    edge[<-, red, line width = 1.5, in = 260, out = 60] (psd)
+    edge[->, red, line width = 1.5, strike thru arrow, in = 85, out = 180] (pac)
+    edge[<-, red, line width = 1.5] (meer);
+    \node[label=above:Bread Board, bb] at (7,-7.5) (bb) {\\{Interlock Control}\\{}\\{TEC Control}\\{}\\{Vacuum Sensor}\\{}\\{HYT Sensor}\\{}\\{HYT Sensor}}
+    edge[->, in = 0, out = 27] (meer)
+    edge[->, in = 0, out = 47] (int);
+    \node[software] at (7,-11) (rpi) {RPI-07}
+    edge[-, blue, line width = 50] (bb);
+    \node[hardware] at (2,-11) (dac) {Data\\Adapter\\Card}
+    edge[<-, dashed, in = 270, out = 270] (daq);
+    
+    % foam box
 \begin{scope}[every node/.append style={scale=.75}, node distance=2cm]
-    \node (legend db) at (15,-19.5) {HV};
-    \node[right of=legend db] (legend hw) {LV};
-    \node[right of=legend hw] (legend sw) {Cooling};
-    \node[right of=legend sw] (legend module) {Controlling};
-    \node[right of=legend module] {Monitoring};
-    \draw[-, red, line width = 0.75] (14.5,-20) -- (15.5,-20);
-    \draw[-, red, line width=1.5pt] (16,-20) -- (17,-20);
-    \draw[-, blue] (17.5,-20) -- (18.5,-20);
-    \draw[-] (19,-20) -- (20,-20);
-    \draw[-, dashed](20.5,-20) -- (21.5,-20);
+    \node[hardware] at (2,-4.5) (chuck) {Vacuum\\Chuck/\\Sensor}
+    edge[<-, dashed, in = 184, out = 0] (bb);
+    \node[hardware, below of =chuck] (pelt) {Peltier}
+    edge[<-, red, line width = 1.5, strike thru arrow] (int)
+    edge[<-, dashed, in = 215, out = 0] (bb);
+    \node[hardware, below of = pelt] (cp) {Cold\\Plate}
+    edge[<-, dashed, in = 235, out = 0] (bb);
+    \node[module, above of = chuck] (mod) {$\alpha$\\Module}
+    edge[-, orange, line width = 5, in = 295, out = 65] (pac)
+    edge[-, orange, line width = 5, in = 65, out = 295] (dac);
 \end{scope}
+\begin{scope}[every node/.append style={scale=5}, node distance=2cm]
+    \node[] at (2,-4) (oo) { { { { }}}};
+    \node[] at (4.5,-4) (oo1) { { { { { { { { { { { { { { }}}}}}}}}}}}}};
+\end{scope}
+
+    % epsilon
+    \node[hardware] at (12,0) (pac1) {Power\\Adapter\\Card}
+    edge[<-, red, line width = 0.75, strike thru arrow, in = 290, out = 95] (hvps);
+    \node[hardware] at (17,0) (meer1) {Meerstetter}
+    edge[<-, red, line width = 1.5, in = 290, out = 90] (psb);
+    \node[hardware, below of = meer1] (int1) {Hardware\\Interlock}
+    edge[<-, red, line width = 1.5, in = 250, out = 110] (psb)
+    edge[<-, red, line width = 1.5, in = 290, out = 100] (psd)
+    edge[->, red, line width = 1.5, strike thru arrow, in = 85, out = 180] (pac1)
+    edge[<-, red, line width = 1.5] (meer1);
+    \node[label=above:Bread Board, bb] at (17,-7.5) (bb1) {\\{Interlock Control}\\{}\\{TEC Control}\\{}\\{Vacuum Sensor}\\{}\\{HYT Sensor}\\{}\\{HYT Sensor}}
+    edge[->, in = 0, out = 27] (meer1)
+    edge[->, in = 0, out = 47] (int1); 
+    \node[software] at (17,-11) (rpi1) {RPI-04}
+    edge[-, blue, line width = 50] (bb1);
+    \node[hardware] at (12,-11) (dac1) {Data\\Adapter\\Card}
+    edge[<-, dashed, in = 270, out = 270] (daq);
+    % foam box
+\begin{scope}[every node/.append style={scale=.75}, node distance=2cm]
+    \node[hardware] at (12,-4.5) (chuck1) {Vacuum\\Chuck/\\Sensor}
+    edge[<-, dashed, in = 184, out = 0] (bb1);
+    \node[hardware, below of =chuck1] (pelt1) {Peltier}
+    edge[<-, red, line width = 1.5, strike thru arrow] (int1)
+    edge[<-, dashed, in = 215, out = 0] (bb1);
+    \node[hardware, below of = pelt1] (cp1) {Cold\\Plate}
+    edge[<-, dashed, in = 235, out = 0] (bb1);
+    \node[module, above of = chuck1] (mod1) {$\beta$\\Module}
+    edge[-, orange, line width = 5, in = 295, out = 65] (pac1)
+    edge[-, orange, line width = 5, in = 65, out = 295] (dac1);
+\end{scope}
+\begin{scope}[every node/.append style={scale=5}, node distance=2cm]
+    \node[] at (12,-4) (oo2) { { { { }}}};
+    \node[] at (14.5,-4) (oo3) { { { { { { { { { { { { { { }}}}}}}}}}}}}};
+\end{scope}
+\begin{scope}[on background layer][every node/.append style={scale=1}, node distance=2cm]
+    \node [label=below:Alpha, boxit, fit= (oo1) (pac) (rpi)] {};
+    \node [label=below:Foam Box, boxit, fit=(mod) (chuck) (pelt) (cp) (oo)] {};
+    \node [label=below:Beta, boxit, fit= (oo3) (pac1) (rpi1)] {};
+    \node [label=below:Foam Box, boxit, fit=(mod1) (chuck1) (pelt1) (cp1) (oo2)] {};
+\end{scope}
+
+    % legend
+\begin{scope}[on background layer][every node/.append style={scale=1}, node distance=2cm]
+    \node[module] at (26,4) (modlegend) {Module};
+    \node[software, right of = modlegend] (softlegend) {Software\\(Control/\\Monitor)};
+    \node[hardware, right of = softlegend] (hardlegend){Hardware};
+    \node[bb, right of = hardlegend] (bblegend) {Bread\\Board};
+    \draw[-, red, line width=.75] (25,2) -- (27,2);
+    \draw[-, red, line width=1.5] (28,2) -- (30,2);
+    \draw[-] (31,2) -- (33,2);
+    \draw[-, dashed] (34,2) -- (36,2);
+    \draw[-,orange,line width=5] (25,0) -- (27,0);
+    \draw[-,red,strike thru arrow] (28,0) -- (30,0);
+    \node[below of  = modlegend] (hvlegend) {High Voltage\\{}\\{}};
+    \node[right of = hvlegend] (lvlegend) {Low Voltage\\{}\\{}};
+    \node[right of = lvlegend] (conlegend) {Controlling\\{}\\{}};
+    \node[right of = conlegend] (monlegend) {Monitoring\\{}\\{}};
+    \node[right of = monlegend]{};
+    \node[left of = dac]{};
+    \node[] at (26,-1) (piglegend) {Pigtails};
+    \node[right of = piglegend] (intlegend) {Connection can\\be cut by\\hardware interlock};
+\end{scope}
+\begin{scope}[every node/.append style={scale=2}, node distance=2.5cm]
+    % links
+    \node[] at (28,-9) (gitlink) {\hfill\href{https://github.com/ScottieJPhillips/Pixel-Module-Diagrams}{\faicon{github}~github repository}};
+    \node[] at (28.2,-10) (overleaflink) {\hfill\href{https://www.overleaf.com/read/bkwxczvgrprg#ddf6fd}{\faicon{link}~overleaf project}};
+\end{scope}
+
 \end{tikzpicture}
+
 \end{document}

@@ -15,7 +15,7 @@ anchorcolor = black]{hyperref}
   wire/.style = {draw = #1, line width = .5mm},
   label/.style = {black!50!white, font=\sffamily, anchor = center},
   text/.style = {white, font=\sffamily, anchor = right},
-  line/.style={-, line width = 5}
+  line/.style={-,line width = 3}
 }
 \begin{document}
 \begin{tikzpicture}[x=5mm,y=5mm]
@@ -86,6 +86,7 @@ anchorcolor = black]{hyperref}
   \draw (11,23) to[resistor] (14,27);
   \draw (11,22) to[resistor] (14,26);
   \draw (11,7) to[capacitor] (15,7);
+  
   % bme
   \draw[line,black] (15,18) to [out=-10,in=180] (25,13.5);
   \draw[line,red] (14,18) to [out=-10,in=180] (25,13);
@@ -97,8 +98,8 @@ anchorcolor = black]{hyperref}
   }
   
   % hyt
-  \draw[line,yellow] (1,29) to [out=10,in=180] (25,27);
-  \draw[line,green] (1,28) to [out=15,in=180] (25,25);
+  \draw[line,yellow] (1,29) to [out=-10,in=180] (25,27);
+  \draw[line,green] (1,28) to [out=-15,in=180] (25,25);
   \draw[line,red] (14,22) to [out=10,in=180] (25,25.667);
   \draw[line,black] (15,22) to [out=10,in=180] (25,26.333);
   \draw[fill=white!70!blue] (25,27.5) rectangle (28.8,24.5);
@@ -107,17 +108,17 @@ anchorcolor = black]{hyperref}
   }
 
   % hyt
-  \draw[line,yellow] (9,23) to [out=10,in=180] (25,21);
-  \draw[line,green] (9,22) to [out=10,in=180] (25,19);
-  \draw[line,red] (14,12) to [out=10,in=180] (25,20.333);
-  \draw[line,black] (15,12) to [out=10,in=180] (25,19.667);
+  \draw[line,yellow] (9,23) to [out=0,in=180] (25,21);
+  \draw[line,green] (9,22) to [out=0,in=180] (25,19);
+  \draw[line,red] (14,12) to [out=40,in=180] (25,20.333);
+  \draw[line,black] (15,12) to [out=40,in=180] (25,19.667);
   \draw[fill=white!70!blue] (25,21.5) rectangle (28.8,18.5);
   \node[white,font=\sffamily,scale=1.5] at (27.4,20) {HYT};
   \foreach \m/\yi in {SDA/21,GND/20.333,VDD/19.667,SCL/19}{ \node[white,font=\sffamily,scale=0.7] at (25.5,\yi) {\m};
   }
   % int controll
-  \draw[line,white!50!purple] (9,20) to [out=-20,in=180] (25,10);
-  \draw[line,black] (15,20) to [out=20,in=180] (25,9);
+  \draw[line,white!20!purple] (9,20) to [out=-20,in=180] (25,10);
+  \draw[line,black] (15,20) to [out=-40,in=180] (25,9);
   \draw[fill=black!60!green] (25,11) rectangle (28.8,8);
   \node[white,font=\sffamily,scale =1] at (27.4,9.7) {Interlock};
   \foreach \m/\yi in {Ctrl/10,GND/9}{ \node[white,font=\sffamily,scale=0.7] at (25.5,\yi) {\m};
