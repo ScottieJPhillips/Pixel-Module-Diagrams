@@ -20,17 +20,17 @@ anchorcolor = black]{hyperref}
 \begin{document}
 \begin{tikzpicture}[x=5mm,y=5mm]
   \draw[fill=black!15!white] (-4,-1) rectangle (16,32);
-  \draw[wire=red]  (-3,1) -- (-3,30);
-  \draw[wire=blue] (-2,1) -- (-2,30);
-  \draw[wire=red]  (14,1) -- (14,30);
-  \draw[wire=blue] (15,1) -- (15,30);
+  %\draw[wire=red]  (-3,1) -- (-3,30);
+  %\draw[wire=blue] (-2,1) -- (-2,30);
+  %\draw[wire=red]  (14,1) -- (14,30);
+  %\draw[wire=blue] (15,1) -- (15,30);
   \foreach \yi in {1,...,30}{
     \node[hole=red]  at (-3,\yi){};
     \node[hole=blue] at (-2,\yi){};
     \node[hole=red]  at (14,\yi){};
     \node[hole=blue] at (15,\yi){};
     \foreach \xs in {0,6}{
-      \draw[wire=black] (\xs+1,\yi) -- (\xs+5,\yi);
+      %\draw[wire=black] (\xs+1,\yi) -- (\xs+5,\yi);
       \foreach \xi in {1,2,3,4,5}{
         \node[hole=black] at (\xi+\xs,\yi){};
       }
@@ -82,10 +82,11 @@ anchorcolor = black]{hyperref}
   \draw[line,white] (4,5) to [out=100,in=-100] (2,20);
   \draw[line,white] (3,6) to [out=85,in=-85] (2,21);
   \draw[line,white] (2,4) to [out=100,in=-100] (1,19);
-  \draw[line,white] (10,8) to [out=20,in=170] (14,9);
-  \draw (11,23) to[resistor] (14,27);
-  \draw (11,22) to[resistor] (14,26);
-  \draw (11,7) to[capacitor] (15,7);
+  %\draw[line,white] (10,8) to [out=20,in=170] (14,9);
+  \draw (11,8) to[resistor] (15,8);%lidsensor resistor
+  \draw (11,27) to[resistor] (14,24);
+  \draw (11,26) to[resistor] (14,23);
+  %\draw (11,7) to[capacitor] (15,7);
   
   % bme
   \draw[line,black] (15,18) to [out=-10,in=180] (25,13.5);
@@ -97,9 +98,9 @@ anchorcolor = black]{hyperref}
   \foreach \m/\yi in {SDI/15,GND/13.5,3Vo/13,SCK/14}{ \node[white,font=\sffamily,scale=0.7] at (25.5,\yi) {\m};
   }
   
-  % hyt
-  \draw[line,yellow] (1,29) to [out=-10,in=180] (25,27);
-  \draw[line,green] (1,28) to [out=-15,in=180] (25,25);
+  % hyt1
+  \draw[line,yellow] (1,29) to [out=-25,in=180] (25,27);
+  \draw[line,green] (1,28) to [out=-35,in=180] (25,25);
   \draw[line,red] (14,22) to [out=10,in=180] (25,25.667);
   \draw[line,black] (15,22) to [out=10,in=180] (25,26.333);
   \draw[fill=white!70!blue] (25,27.5) rectangle (28.8,24.5);
@@ -107,9 +108,9 @@ anchorcolor = black]{hyperref}
   \foreach \m/\yi in {SDA/27,GND/26.333,VDD/25.667,SCL/25}{ \node[white,font=\sffamily,scale=0.7] at (25.5,\yi) {\m};
   }
 
-  % hyt
-  \draw[line,yellow] (9,23) to [out=0,in=180] (25,21);
-  \draw[line,green] (9,22) to [out=0,in=180] (25,19);
+  % hyt2
+  \draw[line,yellow] (10,27) to [out=0,in=180] (25,21);
+  \draw[line,green] (10,26) to [out=0,in=180] (25,19);
   \draw[line,red] (14,12) to [out=40,in=180] (25,20.333);
   \draw[line,black] (15,12) to [out=40,in=180] (25,19.667);
   \draw[fill=white!70!blue] (25,21.5) rectangle (28.8,18.5);
@@ -123,6 +124,19 @@ anchorcolor = black]{hyperref}
   \node[white,font=\sffamily,scale =1] at (27.4,9.7) {Interlock};
   \foreach \m/\yi in {Ctrl/10,GND/9}{ \node[white,font=\sffamily,scale=0.7] at (25.5,\yi) {\m};
   }
+
+  %Lid Sensor
+  \draw[line,black] (9,8) to [out=40,in=180] (25.4,5.5);
+  \draw[line,black] (28.8,7) to  (30,4);
+  \filldraw[color=red!60!yellow](28.8,6) circle (.2);
+  \filldraw[color=black](30.5,4) circle (.5);
+  \draw[line,red] (14,1) to [out=40,in=180] (25.4,6.3);
+  \draw[fill=black!60!orange] (25,7) rectangle (28.8,4);
+  \node[white,font=\sffamily,scale=0.9] at (27.2,5.5) {Lid Sensor};
+  \foreach \m/\yi in {1/6.3,2/5.5,3/4.7}{ \node[white,font=\sffamily,scale=0.8] at (25.4,\yi) {\m};
+  }
+  
+  
   
 \begin{scope}[every node/.append style={scale=2}, node distance=2.5cm]
   % links
